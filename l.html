@@ -1,0 +1,1275 @@
+<div ng-hide="campaign.showTermsAndConditions" ng-include="'views/enter/index.html'" class="ng-scope">
+<!-- ngIf: ::campaign.campaign_type == 'Competition' --><div class="square-row center ng-scope" ng-if="::campaign.campaign_type == 'Competition'">
+<div class="square-row__row">
+<div class="color-square red-square span4" ng-class="{span4: !campaign.hide_total_entries, span6: campaign.hide_total_entries}">
+<span class="square-describe" id="current-entries">
+<span class="status ng-binding" ng-class="getContestantEntriesStatusClass()">
+0
+</span>
+<span class="description ng-binding">Your Entries</span>
+</span>
+</div>
+<!-- ngIf: !campaign.hide_total_entries --><div class="color-square blue-square span4 ng-scope" ng-if="!campaign.hide_total_entries">
+<div class="square-divider"></div>
+<span class="square-describe" id="total-entries">
+<span class="status small" ng-class="getTotalEntriesStatusClass()">
+<span class="current ng-binding">
+16,430
+<!-- ngIf: ::isCampaignEntryLimit() -->
+</span>
+</span>
+<span class="description ng-binding">Total Entries</span>
+</span>
+</div><!-- end ngIf: !campaign.hide_total_entries -->
+<div class="color-square purple-square span4" ng-class="{span4: !campaign.hide_total_entries, span6: campaign.hide_total_entries}">
+<div class="square-divider"></div>
+<span class="square-describe ng-scope" data-ends="1719874799" data-starts="1696287600" gl-countdown="" ng-class="{'one-line': isEnded()}">
+<span class="status ng-binding">
+231
+</span>
+<span class="description ng-binding" ng-show="isStarted() || isTestMode()">
+Days
+<!-- ngIf: !isEnded() && isStarted() --><span ng-if="!isEnded() &amp;&amp; isStarted()" class="ng-binding ng-scope">
+Left
+</span><!-- end ngIf: !isEnded() && isStarted() -->
+<!-- ngIf: !isEnded() && !isStarted() -->
+</span>
+<!-- ngIf: !isStarted() && !isTestMode() -->
+</span>
+</div>
+</div>
+</div><!-- end ngIf: ::campaign.campaign_type == 'Competition' -->
+
+<!-- ngInclude: ::'views/enter/other-logins.html' --><div class="resize-observable ng-scope ng-hide" ng-include="::'views/enter/other-logins.html'" ng-show="demandingOtherLogins()">
+<form class="compact-box form-compact ng-pristine ng-valid ng-scope" id="other-logins" name="emailRecoveryForm">
+<div class="form-compact__content">
+<div class="form-compact__part">
+<h3 class="center">Log in to your existing account</h3>
+<p class="center">
+<strong class="ng-binding"></strong>
+</p>
+<p class="center ng-binding">has already been used to log in to Gleam.</p>
+<p class="center">Please log in to your linked account:</p>
+<ul class="unstyled">
+<!-- ngRepeat: provider in contestantState.otherLogins -->
+<!-- ngIf: contestantState.form.email && contestantState.allowRecovery -->
+</ul>
+</div>
+<!-- ngIf: contestantState.recoveryState && !showRecoveryForm() -->
+<!-- ngIf: contestantState.recoveryState && showRecoveryForm() -->
+</div>
+<div class="form-actions center">
+<a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Other Logins')">
+Cancel
+</a>
+</div>
+</form>
+
+</div>
+<!-- ngInclude: ::'views/enter/demand-auth.html' --><div class="resize-observable ng-scope ng-hide" ng-include="::'views/enter/demand-auth.html'" ng-show="demandingAuth()">
+<div class="center ng-scope" style="padding: 10px; width: 400px; margin: 0 auto;">
+<h3>Verification Needed</h3>
+<p>Sorry! We need you to verify that you are a real person. Please log in with any of these social networks to get started:</p>
+</div>
+<div class="login-choice center login-types-4">
+<ul><!-- ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline instagram-background popup-window" data-track-event="###APP_NAME### Login|instagram" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Instagram">
+<i class="fab fa-instagram"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Instagram
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline telegram-background popup-window" data-track-event="###APP_NAME### Login|telegram" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Telegram">
+<i class="fab fa-telegram"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Telegram
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --><li ng-repeat="provider in ::campaign.verified_login_providers" class="ng-scope">
+<a class="no-underline discord-background popup-window" data-track-event="###APP_NAME### Login|discord" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Discord">
+<i class="fab fa-discord"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Discord
+</span>
+</a>
+</li><!-- end ngRepeat: provider in ::campaign.verified_login_providers --></ul>
+</div>
+
+</div>
+<!-- ngIf: demandingChallenge() -->
+<!-- ngInclude: ::'/' + campaign.key + '/views/enter/edit-contestant.html' --><div class="resize-observable ng-scope ng-hide" ng-include="::'/' + campaign.key + '/views/enter/edit-contestant.html'" ng-show="editingContestant()">
+<form class="contestant compact-box form-compact ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-pattern ng-valid-email" name="contestantEditForm" style="padding-top: 15px">
+<!-- ngIf: !contestantState.form.email_verfication_required --><fieldset class="inputs ng-scope" ng-if="!contestantState.form.email_verfication_required" style="padding-bottom: 10px">
+<div class="form-horizontal">
+<div class="input required stringish form-group" ng-class="{error: contestantEditForm.name.$invalid &amp;&amp; contestantEditForm.name.$touched, success: contestantEditForm.name.$valid}">
+<label class="implicit-label">
+<div class="control-label">Full Name</div>
+<div class="form-wrapper">
+<input name="name" ng-disabled="contestantEditFormFullnameDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.name" ng-pattern=".*" placeholder="Alice Smith" required="" style="width: 246px" type="text" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantEditForm.name.$viewValue">Required</div>
+</div>
+</label>
+</div>
+
+<div class="email input required stringish form-group" ng-class="{error: ((contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail) || (contestantEditForm.email.$invalid &amp;&amp; contestantEditForm.email.$touched)), success: contestantState.form.email != contestantState.failedEmail &amp;&amp; contestantEditForm.email.$valid}">
+<label class="implicit-label">
+<div class="control-label">Email</div>
+<div class="form-wrapper">
+<input name="email" ng-change="contestantState.failedEmail = nil" ng-disabled="contestantEditFormEmailDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.email" pattern="[A-Z0-9._%a-z\-+]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,12}" placeholder="alice.smith@example.com" required="" style="width: 246px; -webkit-appearance: none;" type="email" class="ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantEditForm.email.$viewValue">Required</div>
+<div class="help-inline error ng-binding ng-hide" ng-show="contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail">
+
+</div>
+</div>
+</label>
+</div>
+
+</div>
+<!-- ngIf: ::!isReward() && campaign.show_competition_subscription --><div class="boolean input optional form-group ng-scope" ng-if="::!isReward() &amp;&amp; campaign.show_competition_subscription">
+<div class="form-wrapper">
+<label class="checkbox ng-binding">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input ng-model="contestantState.form.competition_subscription" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty">
+<span class="user-fragment ng-binding" ng-bind-html="::&quot;Notify me of other Bitcoin Minetrix Competitions&quot;|unescapeAngular">Notify me of other Bitcoin Minetrix Competitions</span>
+(optional)
+</label>
+</div>
+
+</div><!-- end ngIf: ::!isReward() && campaign.show_competition_subscription -->
+<!-- ngIf: campaign.confirmation_email_enabled -->
+<!-- ngIf: contestantState.contestant.authentications.length > 0 -->
+</fieldset><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+<div class="form-actions center">
+<!-- ngIf: !contestantState.form.email_verfication_required --><button class="btn btn-primary ng-binding ng-scope" ng-click="updateContestant()" ng-disabled="contestantState.updating || contestantEditForm.$invalid" ng-if="!contestantState.form.email_verfication_required" disabled="disabled">
+Save
+</button><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required && !contestantState.contestant.verificationToEmail -->
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && contestantState.contestant.verificationToEmail -->
+&nbsp;
+<!-- ngIf: !contestantState.form.email_verfication_required --><a href="javascript:void(0)" ng-click="toggleEdit()" ng-disabled="contestantState.updating" ng-if="!contestantState.form.email_verfication_required" class="ng-binding ng-scope">
+Cancel
+</a><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+</div>
+</form>
+
+</div>
+<div class="resize-observable ng-scope" ng-hide="hideEntriesPanel()">
+<div class="prize-area ng-scope"><div class="incentive-wrapper clearfix relative incentive-layout-OnlyText no-image full-image center" ng-class="{'no-image': !imageSrc() || has_embedded_youtube(), 'full-image': !has_side_image(), center: !has_side_image()}" ng-style="{'min-height': imageHeight()}" ng-hide="hide_incentive()"><div class="incentive-description incentive-sections center" ng-class="{'center': !imageSrc() || !incentive.description, middle: !incentive.description}"><!-- ngIf: show_name_text() --><h3 ng-if="show_name_text()" class="incentive-name ng-binding ng-scope">Bitcoin Minetrix $30,000 Minedrop</h3><!-- end ngIf: show_name_text() --><div ng-show="show_description_text()" class="user-fragment incentive-desc ng-binding" ng-bind-html="descriptionText() | forceHTML" ng-class="{'no-bottom-margin': descriptionWithoutBottomMargin()}"><div style="font-size: 0.9375rem;text-align: center;">Bitcoin Minetrix <b>$30,000</b> Minedrop Is Now Live🚨</div><div style="font-size: 0.9375rem;text-align: center;">​</div><div style="font-size: 0.9375rem;text-align: center;">Follow the steps below to enter&nbsp;<b style="font-size: 15px;text-align: left;">for</b>&nbsp;the chance to win&nbsp;<b style="font-size: 15px;text-align: left;">one of</b>&nbsp;10 x $3,000 of $BTCMTX!&nbsp;🎉⬇️</div></div><!-- ngIf: has_single_image() --><!-- ngIf: has_image_gallery() --><!-- ngIf: has_embedded_twitch() --><!-- ngIf: has_embedded_youtube() --><!-- ngIf: has_embedded_vimeo() --><!-- ngIf: has_embedded_wistia() --></div><!-- ngIf: isReward() --></div></div>
+<div ng-show="contestantState.location_allowed &amp;&amp; contestantState.referrer_allowed &amp;&amp; !showCookieFix() &amp;&amp; !campaign.banned &amp;&amp; !contestantState.contestant.banned">
+<div ng-hide="(isRunning() || isTestMode()) &amp;&amp; !campaign.paused" class="ng-hide">
+<!-- ngInclude: 'views/enter/login-status.html' --><span class="text ng-scope ng-hide" ng-include="'views/enter/login-status.html'" ng-show="::isReward()">
+<div class="small-bar contestant-logged-in ng-scope ng-hide" ng-show="contestantState.contestant.id">
+<div class="small-bar__links">
+<a href="javascript:void(0)" ng-click="toggleEdit()" class="ng-binding">Edit</a>
+<a data-logout-link="true" rel="nofollow" data-method="delete" href="/entry/logout" class="ng-binding">Logout
+</a></div>
+<div class="small-bar--text ng-binding">
+<span ng-hide="::isReward()" class="ng-binding">
+Entering as
+</span>
+
+<ul class="click-blocks">
+<li ng-show="contestantState.contestant.email" class="ng-hide">
+<a class="no-underline email-bg" href="javascript:void(0)" ng-click="toggleEdit()" uib-tooltip="">
+<i class="fas fa-envelope"></i>
+</a>
+</li><!-- ngRepeat: authentication in contestantState.contestant.authentications --></ul>
+</div>
+</div>
+<div class="small-bar ng-scope" ng-hide="contestantState.contestant.id || campaign.hide_social_logins || campaign.details_first">
+<div class="small-bar--text ng-binding">
+Login with:
+<ul class="click-blocks">
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</div>
+
+</span>
+<div class="massive-message light-grey-bg center ng-hide" ng-show="!campaign.winners &amp;&amp; showPromotionEnded()">
+<i class="fas fa-flag-checkered"></i>
+<h2 class="ng-binding">
+This Competition has ended
+</h2>
+</div>
+<div class="massive-message light-grey-bg center ng-hide" ng-show="!campaign.winners &amp;&amp; !showPromotionEnded() &amp;&amp; campaign.paused &amp;&amp; !contestantState.emailLogin">
+<i class="fas fa-pause"></i>
+<h2 class="ng-binding">
+Competition paused
+</h2>
+<p class="ng-binding">
+This Competition is currently paused.  Please try again later.
+</p>
+</div>
+<div class="announce-winners ng-hide" ng-show="campaign.winners &amp;&amp; showPromotionEnded()">
+<h2 class="center entry-heading ng-binding">
+Winning Entries
+</h2>
+<!-- ngRepeat: winner in ::campaign.winners -->
+</div>
+<div class="massive-message light-grey-bg center ng-hide" ng-show="showPromotionStartsIn()">
+<i class="far fa-clock"></i>
+<h2>
+This promotion starts in
+<br>
+<span class="mont ng-scope ng-binding" data-ends="1719874799" data-starts="1696287600" gl-countdown="">
+231 Days
+</span>
+</h2>
+</div>
+</div>
+<div ng-show="(requiresInitialLogin() &amp;&amp; (isRunning() || isTestMode())) || contestantState.emailLogin" class="ng-hide">
+<!-- ngInclude: 'views/enter/login-status.html' --><span class="text ng-scope ng-hide" ng-include="'views/enter/login-status.html'" ng-show="campaign.login_first &amp;&amp; contestantState.contestant.id">
+<div class="small-bar contestant-logged-in ng-scope ng-hide" ng-show="contestantState.contestant.id">
+<div class="small-bar__links">
+<a href="javascript:void(0)" ng-click="toggleEdit()" class="ng-binding">Edit</a>
+<a data-logout-link="true" rel="nofollow" data-method="delete" href="/entry/logout" class="ng-binding">Logout
+</a></div>
+<div class="small-bar--text ng-binding">
+<span ng-hide="::isReward()" class="ng-binding">
+Entering as
+</span>
+
+<ul class="click-blocks">
+<li ng-show="contestantState.contestant.email" class="ng-hide">
+<a class="no-underline email-bg" href="javascript:void(0)" ng-click="toggleEdit()" uib-tooltip="">
+<i class="fas fa-envelope"></i>
+</a>
+</li><!-- ngRepeat: authentication in contestantState.contestant.authentications --></ul>
+</div>
+</div>
+<div class="small-bar ng-scope" ng-hide="contestantState.contestant.id || campaign.hide_social_logins || campaign.details_first">
+<div class="small-bar--text ng-binding">
+Login with:
+<ul class="click-blocks">
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</div>
+
+</span>
+<!-- ngInclude: ::'/' + campaign.key + '/ng-view/enter/contestant-details.html' --><div ng-include="::'/' + campaign.key + '/ng-view/enter/contestant-details.html'" class="ng-scope">
+<form class="contestant compact-box form-compact ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-pattern ng-valid-email ng-valid-maxlength" name="contestantForm" ng-init="initFacebook()">
+<fieldset class="center ng-hide" ng-show="(!contestantState.emailLogin &amp;&amp; !campaign.details_first &amp;&amp; campaign.login_first &amp;&amp; !contestantState.contestant.id) || socialLoginRequired() &amp;&amp; !contestantState.form.email_verfication_required">
+<p style="margin-top: 15px" class="ng-binding">
+Log in using...
+</p>
+<div class="login-choice center login-types-4">
+<ul>
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</fieldset>
+<!-- ngIf: !contestantState.form.email_verfication_required --><fieldset class="inputs ng-scope" ng-show="!socialLoginRequired() &amp;&amp; (                     !campaign.login_first ||                                                      contestantState.emailLogin ||                                                 campaign.details_first ||                                                     (contestantState.contestant.id &amp;&amp; campaign.login_first &amp;&amp; !enoughUserDetails(entry_method)) || 
+contestantState.unconfirmed)" ng_if="!contestantState.form.email_verfication_required">
+<div class="center details-header" ng-switch="::isReward()">
+<!-- ngSwitchWhen: true -->
+<!-- ngSwitchWhen: false --><div ng-switch-when="false" class="ng-scope">
+<!-- ngIf: campaign.additional_contestant_details && contestantStep==0 --><div ng-if="campaign.additional_contestant_details &amp;&amp; contestantStep==0" class="ng-scope">
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><h4 ng-if="::!campaign.login_first" class="ng-binding ng-scope">Please enter your details to complete your entry</h4><!-- end ngIf: ::!campaign.login_first -->
+</div><!-- end ngIf: campaign.additional_contestant_details && contestantStep==0 -->
+<!-- ngIf: ::!campaign.additional_contestant_details -->
+</div><!-- end ngSwitchWhen: -->
+</div>
+<div class="form-horizontal">
+<div ng-init="contestantSteps=1">
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="input required stringish form-group" ng-class="{error: contestantForm.name.$invalid &amp;&amp; contestantForm.name.$touched, success: contestantForm.name.$valid}">
+<label class="implicit-label">
+<div class="control-label">Full Name</div>
+<div class="form-wrapper">
+<input name="name" ng-disabled="contestantFormFullnameDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.name" ng-pattern=".*" placeholder="Alice Smith" required="" style="width: 246px" type="text" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.name.$viewValue">Required</div>
+</div>
+</label>
+</div>
+
+
+<div class="email input required stringish form-group" ng-class="{error: ((contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail) || (contestantForm.email.$invalid &amp;&amp; contestantForm.email.$touched)), success: contestantState.form.email != contestantState.failedEmail &amp;&amp; contestantForm.email.$valid}">
+<label class="implicit-label">
+<div class="control-label">Email</div>
+<div class="form-wrapper">
+<input name="email" ng-change="contestantState.failedEmail = nil" ng-disabled="contestantFormEmailDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.email" pattern="[A-Z0-9._%a-z\-+]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,12}" placeholder="alice.smith@example.com" required="" style="width: 246px; -webkit-appearance: none;" type="email" class="ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.email.$viewValue">Required</div>
+<div class="help-inline error ng-binding ng-hide" ng-show="contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail">
+
+</div>
+</div>
+</label>
+</div>
+
+
+<div ng-init="dc.date_of_birth = ({&quot;type&quot;:&quot;dob&quot;,&quot;label&quot;:&quot;Date of Birth&quot;,&quot;day_placeholder&quot;:&quot;DD&quot;,&quot;month_placeholder&quot;:&quot;MM&quot;,&quot;year_placeholder&quot;:&quot;YYYY&quot;,&quot;format&quot;:&quot;By Region&quot;,&quot;required&quot;:true,&quot;readonly&quot;:true,&quot;generated&quot;:&quot;minimum_age&quot;,&quot;minimum_age&quot;:18}|unescapeAngular)">
+<div class="input stringish form-group split-dob required" ng-class="{'split-dob': true, error: contestantForm.date_of_birth.$touched &amp;&amp; contestantForm.date_of_birth.$invalid, success: contestantForm.date_of_birth.$valid &amp;&amp; contestantForm.date_of_birth.$viewValue, required: true }">
+<label class="implicit-label">
+<div class="control-label" ng-non-bindable="">
+Date of Birth
+</div>
+<div class="form-wrapper" style="width: calc(100% - 130px)">
+<div class="dob-input-field ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" day-placeholder="DD" dob-minimum-age="18" dob-required="true" month-placeholder="MM" name="date_of_birth" ng-model="contestantState.form.date_of_birth" year-placeholder="YYYY"><div ng-form="" name="dobFormcmi9hgcuu" class="split-dob-form ng-pristine ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" style="display: inline-block;">
+  <input type="hidden" name="date_of_birth" autocomplete="off">
+  <!-- ngIf: monthFirst -->
+  <input class="dob-input-field__day ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-day" ng-model="dob.day" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((3[01])|([12][0-9])|(0?[1-9]?))$" maxlength="2" placeholder="DD" ng-required="required" restrict="[^\d]" ng-change="onDayChange()" ng-focus="onDayFocus()" ng-blur="onDayBlur()" ng-keydown="onDayKeydown($event)" style="width: 38px !important; margin-right: 6px;" "="" required="required">
+  <!-- ngIf: !monthFirst --><input ng-if="!monthFirst" class="dob-input-field__month ng-pristine ng-untouched ng-scope ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-month" ng-model="dob.month" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((1[0-2]{1})|(0?[1-9]{1}))$" maxlength="2" placeholder="MM" ng-required="required" restrict="[^\d]" ng-change="onMonthChange()" ng-focus="onMonthFocus()" ng-blur="onMonthBlur()" ng-keydown="onMonthKeydown($event)" style="width: 38px !important; margin-right: 6px;" required="required"><!-- end ngIf: !monthFirst -->
+  <input class="dob-input-field__year ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-year" ng-model="dob.year" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((((19)|(20))\d{2})|([0-9]{1,2}))$" maxlength="4" placeholder="YYYY" ng-required="required" restrict="[^\d]" ng-change="onYearChange()" ng-focus="onYearFocus()" ng-blur="onYearBlur()" ng-keydown="onYearKeydown($event)" style="width: 56px !important;" required="required">
+</div></div>
+<!-- ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge --><div class="help-inline ng-scope" ng-if="((contestantForm.date_of_birth.$viewValue &amp;&amp; !contestantForm.date_of_birth.$valid) || 1) &amp;&amp; !contestantForm.date_of_birth.$error.minimumAge">
+Required
+</div><!-- end ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge -->
+<!-- ngIf: ::dc.date_of_birth.hint -->
+</div>
+<p class="under-error ng-binding ng-hide" ng-show="contestantForm.date_of_birth.$error.minimumAge">You must be at least 18 years of age</p>
+</label>
+</div>
+
+</div>
+
+<div ng-init="dc.i_have_read_the_terms_and_conditions = ({&quot;type&quot;:&quot;checkbox&quot;,&quot;label&quot;:&quot;I have read the terms and conditions&quot;,&quot;required&quot;:true,&quot;template_name&quot;:&quot;I have read the terms and conditions&quot;,&quot;terms_and_conditions&quot;:true,&quot;terms_and_conditions_label&quot;:&quot;I have read the&quot;,&quot;terms_and_conditions_title&quot;:&quot;terms and conditions&quot;}|unescapeAngular)">
+<div class="input boolean form-group additional-checkbox terms-and-conditions">
+<div class="form-wrapper">
+<label class="checkbox">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input name="i_have_read_the_terms_and_conditions" ng-init="contestantState.form.i_have_read_the_terms_and_conditions = allowAutoticking() &amp;&amp; false" ng-model="contestantState.form.i_have_read_the_terms_and_conditions" ng-required="true" placeholder="" type="checkbox" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="required">
+<span class="ng-binding">
+I have read the
+<a href="javascript:void(0);" ng-click="toggleTermsAndConditions()" class="ng-binding">
+terms and conditions
+</a>
+</span>
+</label>
+</div>
+</div>
+
+
+</div>
+
+</div><!-- end ngIf: contestantStep==0 -->
+</div>
+</div>
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="boolean input optional form-group" ng-hide="::isReward() || !campaign.show_competition_subscription">
+<div class="form-wrapper">
+<label class="checkbox ng-binding">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input ng-model="contestantState.form.competition_subscription" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty">
+<span class="user-fragment ng-binding" ng-bind-html="::&quot;Notify me of other Bitcoin Minetrix Competitions&quot;|unescapeAngular">Notify me of other Bitcoin Minetrix Competitions</span>
+(optional)
+</label>
+</div>
+
+</div>
+<!-- ngIf: ::campaign.facebook_url -->
+</div><!-- end ngIf: contestantStep==0 -->
+</fieldset><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+<div class="form-actions center" ng-show="!socialLoginRequired() &amp;&amp; (                   !campaign.login_first ||                                                       contestantState.emailLogin ||                                                  campaign.details_first ||                                                      
+contestantState.contestant.id)">
+<span style="position: inline-block; position: relative">
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && !contestantState.contestant.verificationToEmail -->
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && contestantState.contestant.verificationToEmail -->
+<!-- ngIf: nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<!-- ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required --><button class="btn btn-primary ng-scope" ng-click="setContestant()" ng-disabled="contestantForm.$invalid || contestantState.sending" ng-if="!nextStepAvailable() &amp;&amp; !contestantState.form.email_verfication_required" disabled="disabled">
+<span class="fas fa-rotate fa-spin ng-hide" ng-show="contestantState.sending"></span>
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><span ng-if="::!campaign.login_first" class="ng-scope">Save</span><!-- end ngIf: ::!campaign.login_first -->
+</button><!-- end ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<span ng-show="contestantButtonTooltip(contestantForm.$valid)" style="position: absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0" tooltip-placement="top" uib-tooltip="Please complete your details to continue"></span>
+</span>
+<span ng-hide="::campaign.login_first &amp;&amp; campaign.details_first">
+<!-- ngIf: !contestantState.form.email_verfication_required --><a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Contestant')" ng-if="!contestantState.form.email_verfication_required" class="ng-scope">
+Cancel
+</a><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+</span>
+</div>
+</form>
+
+</div>
+</div>
+<div ng-hide="requiresInitialLogin() || contestantState.emailLogin">
+<!-- ngInclude: 'views/entry.html' --><div class="entry-content ng-scope requires-mandatory-methods" ng-class="{'requires-mandatory-methods': requiresMandatoryActions(), 'expanded-exists': entryState.expanded}" ng-include="'views/entry.html'" ng-show="isRunning() || isTestMode()">
+<!-- ngIf: ::entry_methods.length > 1 && !campaign.hide_entry_title --><h2 class="entry-heading center ng-binding ng-scope" ng-if="::entry_methods.length > 1 &amp;&amp; !campaign.hide_entry_title">
+6 Ways to Enter
+</h2><!-- end ngIf: ::entry_methods.length > 1 && !campaign.hide_entry_title -->
+<!-- ngInclude: 'views/enter/login-status.html' --><span class="text ng-scope" ng-include="'views/enter/login-status.html'">
+<div class="small-bar contestant-logged-in ng-scope ng-hide" ng-show="contestantState.contestant.id">
+<div class="small-bar__links">
+<a href="javascript:void(0)" ng-click="toggleEdit()" class="ng-binding">Edit</a>
+<a data-logout-link="true" rel="nofollow" data-method="delete" href="/entry/logout" class="ng-binding">Logout
+</a></div>
+<div class="small-bar--text ng-binding">
+<span ng-hide="::isReward()" class="ng-binding">
+Entering as
+</span>
+
+<ul class="click-blocks">
+<li ng-show="contestantState.contestant.email" class="ng-hide">
+<a class="no-underline email-bg" href="javascript:void(0)" ng-click="toggleEdit()" uib-tooltip="">
+<i class="fas fa-envelope"></i>
+</a>
+</li><!-- ngRepeat: authentication in contestantState.contestant.authentications --></ul>
+</div>
+</div>
+<div class="small-bar ng-scope" ng-hide="contestantState.contestant.id || campaign.hide_social_logins || campaign.details_first">
+<div class="small-bar--text ng-binding">
+Login with:
+<ul class="click-blocks">
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</div>
+
+</span>
+<!-- ngRepeat: entry_method in ::entry_methods --><div class="entry-method visit template" data-remove-popovers="" id="em7406436" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link custom-border custom_action-border clearfix mandatory default" data-track-event="###APP_NAME### Click|custom|action" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="This is worth one entry">
+<span ng-hide="hideTallyNumber(entry_method)">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fas fa-square-up-right"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope ng-binding" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Visit Our Website
+
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<form class="contestant compact-box form-compact ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-pattern ng-valid-email ng-valid-maxlength" name="contestantForm" ng-init="initFacebook()">
+<fieldset class="center ng-hide" ng-show="(!contestantState.emailLogin &amp;&amp; !campaign.details_first &amp;&amp; campaign.login_first &amp;&amp; !contestantState.contestant.id) || socialLoginRequired() &amp;&amp; !contestantState.form.email_verfication_required">
+<p style="margin-top: 15px" class="ng-binding">
+Log in using...
+</p>
+<div class="login-choice center login-types-4">
+<ul>
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</fieldset>
+<!-- ngIf: !contestantState.form.email_verfication_required --><fieldset class="inputs ng-scope" ng-show="!socialLoginRequired() &amp;&amp; (                     !campaign.login_first ||                                                      contestantState.emailLogin ||                                                 campaign.details_first ||                                                     (contestantState.contestant.id &amp;&amp; campaign.login_first &amp;&amp; !enoughUserDetails(entry_method)) || 
+contestantState.unconfirmed)" ng_if="!contestantState.form.email_verfication_required">
+<div class="center details-header" ng-switch="::isReward()">
+<!-- ngSwitchWhen: true -->
+<!-- ngSwitchWhen: false --><div ng-switch-when="false" class="ng-scope">
+<!-- ngIf: campaign.additional_contestant_details && contestantStep==0 --><div ng-if="campaign.additional_contestant_details &amp;&amp; contestantStep==0" class="ng-scope">
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><h4 ng-if="::!campaign.login_first" class="ng-binding ng-scope">Please enter your details to complete your entry</h4><!-- end ngIf: ::!campaign.login_first -->
+</div><!-- end ngIf: campaign.additional_contestant_details && contestantStep==0 -->
+<!-- ngIf: ::!campaign.additional_contestant_details -->
+</div><!-- end ngSwitchWhen: -->
+</div>
+<div class="form-horizontal">
+<div ng-init="contestantSteps=1">
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="input required stringish form-group" ng-class="{error: contestantForm.name.$invalid &amp;&amp; contestantForm.name.$touched, success: contestantForm.name.$valid}">
+<label class="implicit-label">
+<div class="control-label">Full Name</div>
+<div class="form-wrapper">
+<input name="name" ng-disabled="contestantFormFullnameDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.name" ng-pattern=".*" placeholder="Alice Smith" required="" style="width: 246px" type="text" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.name.$viewValue">Required</div>
+</div>
+</label>
+</div>
+
+
+<div class="email input required stringish form-group" ng-class="{error: ((contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail) || (contestantForm.email.$invalid &amp;&amp; contestantForm.email.$touched)), success: contestantState.form.email != contestantState.failedEmail &amp;&amp; contestantForm.email.$valid}">
+<label class="implicit-label">
+<div class="control-label">Email</div>
+<div class="form-wrapper">
+<input name="email" ng-change="contestantState.failedEmail = nil" ng-disabled="contestantFormEmailDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.email" pattern="[A-Z0-9._%a-z\-+]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,12}" placeholder="alice.smith@example.com" required="" style="width: 246px; -webkit-appearance: none;" type="email" class="ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.email.$viewValue">Required</div>
+<div class="help-inline error ng-binding ng-hide" ng-show="contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail">
+
+</div>
+</div>
+</label>
+</div>
+
+
+<div ng-init="dc.date_of_birth = ({&quot;type&quot;:&quot;dob&quot;,&quot;label&quot;:&quot;Date of Birth&quot;,&quot;day_placeholder&quot;:&quot;DD&quot;,&quot;month_placeholder&quot;:&quot;MM&quot;,&quot;year_placeholder&quot;:&quot;YYYY&quot;,&quot;format&quot;:&quot;By Region&quot;,&quot;required&quot;:true,&quot;readonly&quot;:true,&quot;generated&quot;:&quot;minimum_age&quot;,&quot;minimum_age&quot;:18}|unescapeAngular)">
+<div class="input stringish form-group split-dob required" ng-class="{'split-dob': true, error: contestantForm.date_of_birth.$touched &amp;&amp; contestantForm.date_of_birth.$invalid, success: contestantForm.date_of_birth.$valid &amp;&amp; contestantForm.date_of_birth.$viewValue, required: true }">
+<label class="implicit-label">
+<div class="control-label" ng-non-bindable="">
+Date of Birth
+</div>
+<div class="form-wrapper" style="width: calc(100% - 130px)">
+<div class="dob-input-field ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" day-placeholder="DD" dob-minimum-age="18" dob-required="true" month-placeholder="MM" name="date_of_birth" ng-model="contestantState.form.date_of_birth" year-placeholder="YYYY"><div ng-form="" name="dobFormm9wzdn7es" class="split-dob-form ng-pristine ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" style="display: inline-block;">
+  <input type="hidden" name="date_of_birth" autocomplete="off">
+  <!-- ngIf: monthFirst -->
+  <input class="dob-input-field__day ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-day" ng-model="dob.day" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((3[01])|([12][0-9])|(0?[1-9]?))$" maxlength="2" placeholder="DD" ng-required="required" restrict="[^\d]" ng-change="onDayChange()" ng-focus="onDayFocus()" ng-blur="onDayBlur()" ng-keydown="onDayKeydown($event)" style="width: 38px !important; margin-right: 6px;" "="" required="required">
+  <!-- ngIf: !monthFirst --><input ng-if="!monthFirst" class="dob-input-field__month ng-pristine ng-untouched ng-scope ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-month" ng-model="dob.month" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((1[0-2]{1})|(0?[1-9]{1}))$" maxlength="2" placeholder="MM" ng-required="required" restrict="[^\d]" ng-change="onMonthChange()" ng-focus="onMonthFocus()" ng-blur="onMonthBlur()" ng-keydown="onMonthKeydown($event)" style="width: 38px !important; margin-right: 6px;" required="required"><!-- end ngIf: !monthFirst -->
+  <input class="dob-input-field__year ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-year" ng-model="dob.year" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((((19)|(20))\d{2})|([0-9]{1,2}))$" maxlength="4" placeholder="YYYY" ng-required="required" restrict="[^\d]" ng-change="onYearChange()" ng-focus="onYearFocus()" ng-blur="onYearBlur()" ng-keydown="onYearKeydown($event)" style="width: 56px !important;" required="required">
+</div></div>
+<!-- ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge --><div class="help-inline ng-scope" ng-if="((contestantForm.date_of_birth.$viewValue &amp;&amp; !contestantForm.date_of_birth.$valid) || 1) &amp;&amp; !contestantForm.date_of_birth.$error.minimumAge">
+Required
+</div><!-- end ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge -->
+<!-- ngIf: ::dc.date_of_birth.hint -->
+</div>
+<p class="under-error ng-binding ng-hide" ng-show="contestantForm.date_of_birth.$error.minimumAge">You must be at least 18 years of age</p>
+</label>
+</div>
+
+</div>
+
+<div ng-init="dc.i_have_read_the_terms_and_conditions = ({&quot;type&quot;:&quot;checkbox&quot;,&quot;label&quot;:&quot;I have read the terms and conditions&quot;,&quot;required&quot;:true,&quot;template_name&quot;:&quot;I have read the terms and conditions&quot;,&quot;terms_and_conditions&quot;:true,&quot;terms_and_conditions_label&quot;:&quot;I have read the&quot;,&quot;terms_and_conditions_title&quot;:&quot;terms and conditions&quot;}|unescapeAngular)">
+<div class="input boolean form-group additional-checkbox terms-and-conditions">
+<div class="form-wrapper">
+<label class="checkbox">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input name="i_have_read_the_terms_and_conditions" ng-init="contestantState.form.i_have_read_the_terms_and_conditions = allowAutoticking() &amp;&amp; false" ng-model="contestantState.form.i_have_read_the_terms_and_conditions" ng-required="true" placeholder="" type="checkbox" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="required">
+<span class="ng-binding">
+I have read the
+<a href="javascript:void(0);" ng-click="toggleTermsAndConditions()" class="ng-binding">
+terms and conditions
+</a>
+</span>
+</label>
+</div>
+</div>
+
+
+</div>
+
+</div><!-- end ngIf: contestantStep==0 -->
+</div>
+</div>
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="boolean input optional form-group" ng-hide="::isReward() || !campaign.show_competition_subscription">
+<div class="form-wrapper">
+<label class="checkbox ng-binding">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input ng-model="contestantState.form.competition_subscription" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty">
+<span class="user-fragment ng-binding" ng-bind-html="::&quot;Notify me of other Bitcoin Minetrix Competitions&quot;|unescapeAngular">Notify me of other Bitcoin Minetrix Competitions</span>
+(optional)
+</label>
+</div>
+
+</div>
+<!-- ngIf: ::campaign.facebook_url -->
+</div><!-- end ngIf: contestantStep==0 -->
+</fieldset><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+<div class="form-actions center" ng-show="!socialLoginRequired() &amp;&amp; (                   !campaign.login_first ||                                                       contestantState.emailLogin ||                                                  campaign.details_first ||                                                      
+contestantState.contestant.id)">
+<span style="position: inline-block; position: relative">
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && !contestantState.contestant.verificationToEmail -->
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && contestantState.contestant.verificationToEmail -->
+<!-- ngIf: nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<!-- ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required --><button class="btn btn-primary ng-scope" ng-click="setContestant()" ng-disabled="contestantForm.$invalid || contestantState.sending" ng-if="!nextStepAvailable() &amp;&amp; !contestantState.form.email_verfication_required" disabled="disabled">
+<span class="fas fa-rotate fa-spin ng-hide" ng-show="contestantState.sending"></span>
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><span ng-if="::!campaign.login_first" class="ng-scope">Save</span><!-- end ngIf: ::!campaign.login_first -->
+</button><!-- end ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<span ng-show="contestantButtonTooltip(contestantForm.$valid)" style="position: absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0" tooltip-placement="top" uib-tooltip="Please complete your details to continue"></span>
+</span>
+<span ng-hide="::campaign.login_first &amp;&amp; campaign.details_first">
+<!-- ngIf: !contestantState.form.email_verfication_required --><a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Contestant')" ng-if="!contestantState.form.email_verfication_required" class="ng-scope">
+Cancel
+</a><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+</span>
+</div>
+</form>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods --><div class="entry-method " data-remove-popovers="" id="em7406437" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link wallet-border wallet_address-border clearfix" data-track-event="###APP_NAME### Click|wallet|address" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="Done! You got 0 entries">
+<span ng-hide="hideTallyNumber(entry_method)" class="ng-hide">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)" class="fas fa-lock"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fal fa-wallet"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope ng-binding" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Proof Of Purchase (Transaction Hash)
+
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<form class="entry_details compact-box form-compact ng-pristine ng-valid ng-scope" name="entryDetailsForm">
+<div class="form-compact__content">
+<div class="form-compact__part">
+<div class="text input optional form-group">
+<div class="form-wrapper center">
+<!-- ngIf: entry_method.config5 -->
+<div class="input-append input-append--full-width">
+<input id="em7406437Details" name="data" ng-class="{invalid: continueDisabled(entry_method)}" ng-model="entryState.formData[entry_method.id]" placeholder="" type="text" class="ng-pristine ng-untouched ng-valid ng-empty invalid">
+<span class="add-on">
+<!-- ngIf: continueDisabled(entry_method) --><i class="fal fa-wallet" ng-if="continueDisabled(entry_method)"></i><!-- end ngIf: continueDisabled(entry_method) -->
+<!-- ngIf: !continueDisabled(entry_method) -->
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="form-actions center">
+<div style="display: inline-block; position: relative; z-index: 1" uib-tooltip="Address is not valid">
+<a class="btn btn-primary" ng-click="saveEntryDetails(entry_method)" ng-disabled="continueDisabled(entry_method)" disabled="disabled">
+Continue
+</a>
+</div>
+<a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Submit Address')">
+Cancel
+</a>
+</div>
+</form>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods --><div class="entry-method " data-remove-popovers="" id="em7406438" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link twitter-border twitter_follow-border clearfix mandatory default" data-track-event="###APP_NAME### Click|twitter|follow" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="This is worth one entry">
+<span ng-hide="hideTallyNumber(entry_method)">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fab fa-square-x-twitter"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Follow
+<span class="dotted-underline ng-binding ng-scope" data-container="#em7406438" data-content-finder="#em7406438-popover-content" data-html="true" data-more-popover="" data-placement="top" popover-parsed="true" data-original-title="" title="">@bitcoinminetrix</span>
+on Twitter
+<div id="em7406438-popover-content" style="display:none" class="ng-scope">
+<a href="https://twitter.com/bitcoinminetrix" rel="noopener" target="_blank" class="ng-binding">
+twitter.com/bitcoinminetrix
+</a>
+</div>
+
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<div class="entry_details compact-box form-compact ng-scope">
+<div class="form-compact__content center">
+<div class="form-compact__part">
+<!-- ngIf: ::entry_method.worth == 1 --><span ng-if="::entry_method.worth == 1" class="ng-binding ng-scope">Unlock an entry for following @bitcoinminetrix on Twitter</span><!-- end ngIf: ::entry_method.worth == 1 -->
+<!-- ngIf: ::entry_method.worth > 1 -->
+</div>
+<div class="form-compact__part">
+<div>
+<a class="xl twitter-button" ng-click="showExtra(entry_method)" ng-href="https://twitter.com/intent/follow?screen_name=bitcoinminetrix" rel="noopener" target="_blank" href="https://twitter.com/intent/follow?screen_name=bitcoinminetrix">
+<i></i>
+<span class="twitter-label">
+Follow
+</span>
+</a>
+
+<strong ng-hide="entry_method.api_denied || isAuthenticated(entry_method, 'twitter')" style="vertical-align: middle" class="ng-hide">
+Or
+&nbsp;
+</strong>
+<a class="xl twitter-button ng-hide" data-track-event="###APP_NAME### SubLogin|twitter" href="javascript:void(0)" ng-click="openAuthentication(entry_method.provider)" ng-hide="entry_method.api_denied || isAuthenticated(entry_method, 'twitter')" title="">
+<i></i>
+<span class="twitter-label">
+Connect Your Twitter Account
+</span>
+</a>
+</div>
+<p class="center ng-binding ng-hide" ng-bind-html="t('twitter_connect_help')" ng-hide="entry_method.api_denied || isAuthenticated(entry_method, 'twitter')">Connect your Twitter account to verify Twitter actions in 1 click.<br>We will not post without your permission.</p>
+</div>
+<div class="form-compact__part">
+<p class="center" ng-hide="entry_method.show_extra || (!entry_method.fallback_to_details_submission &amp;&amp; isAuthenticated(entry_method, 'twitter'))">
+<a href="javascript:void(0)" ng-click="showTwitterExtra(entry_method)">
+<small>
+Already followed?
+</small>
+</a>
+</p>
+<form class="compact-box entry_details twitter-username ng-pristine ng-valid ng-valid-pattern ng-hide" name="entryDetailsForm" ng-show="entry_method.show_extra || (!entry_method.fallback_to_details_submission &amp;&amp; isAuthenticated(entry_method, 'twitter'))" style="margin-bottom: 0">
+<div class="input-append" ng-hide="!entry_method.fallback_to_details_submission &amp;&amp; isAuthenticated(entry_method, 'twitter')" style="margin-bottom: 0">
+<label class="inline-too" for="em7406438Details" style="margin-bottom: 0">Username</label>
+<input class="twitter-username__field ng-pristine ng-untouched ng-valid ng-empty ng-valid-pattern" id="em7406438Details" name="data" ng-enter="saveEntryDetails(entry_method)" ng-init="entryState.formData[entry_method.id] ? null : entryState.formData[entry_method.id] = {}" ng-model="entryState.formData[entry_method.id]['twitter_username']" ng-pattern="/^@?(?:[A-Za-z0-9_]{1,15})$/" placeholder="@MyName" type="text">
+<a class="btn btn-primary" ng-click="saveEntryDetails(entry_method)" ng-disabled="continueDisabled(entry_method)" tooltip-placement="left" uib-tooltip="Please enter a valid Twitter username to continue" disabled="disabled">
+Continue
+</a>
+</div>
+<div class="form-actions center ng-hide" ng-show="!entry_method.fallback_to_details_submission &amp;&amp; isAuthenticated(entry_method, 'twitter')" style="margin: -13px">
+<div style="display: inline-block; position: relative; z-index: 1" tooltip-placement="left" uib-tooltip="Please enter a valid Twitter username to continue">
+<a class="btn btn-primary" ng-click="saveEntryDetails(entry_method)" ng-disabled="continueDisabled(entry_method)" disabled="disabled">
+<span>
+Continue
+</span>
+</a>
+</div>
+<a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Custom')">
+Cancel
+</a>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods --><div class="entry-method visit template" data-remove-popovers="" id="em7406439" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link custom-border custom_action-border clearfix" data-track-event="###APP_NAME### Click|custom|action" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="You need to complete 4 other actions first">
+<span ng-hide="hideTallyNumber(entry_method)" class="ng-hide">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)" class="fas fa-lock"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fas fa-square-up-right"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope ng-binding" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Visit Our Staking Dashboard
+
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<form class="contestant compact-box form-compact ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-pattern ng-valid-email ng-valid-maxlength" name="contestantForm" ng-init="initFacebook()">
+<fieldset class="center ng-hide" ng-show="(!contestantState.emailLogin &amp;&amp; !campaign.details_first &amp;&amp; campaign.login_first &amp;&amp; !contestantState.contestant.id) || socialLoginRequired() &amp;&amp; !contestantState.form.email_verfication_required">
+<p style="margin-top: 15px" class="ng-binding">
+Log in using...
+</p>
+<div class="login-choice center login-types-4">
+<ul>
+<!-- ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline email-background popup-window" data-track-event="###APP_NAME### Login|email" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Email">
+<i class="far fa-envelope"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Email
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline facebook-background popup-window" data-track-event="###APP_NAME### Login|facebook" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Facebook">
+<i class="fab fa-facebook-f"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Facebook
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline google-background popup-window" data-track-event="###APP_NAME### Login|google" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Google">
+<i class="fab fa-google"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Google
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types --><li ng-repeat="provider in campaign.login_types" class="ng-scope">
+<a class="no-underline twitter-background popup-window" data-track-event="###APP_NAME### Login|twitter" href="javascript:void(0)" ng-click="openAuthentication(provider)" uib-tooltip="Twitter">
+<i class="fab fa-twitter"></i>
+<span class="login-block--prefix">Login with</span>
+<span class="login-block--text ng-binding">
+Twitter
+</span>
+</a>
+</li><!-- end ngRepeat: provider in campaign.login_types -->
+</ul>
+</div>
+</fieldset>
+<!-- ngIf: !contestantState.form.email_verfication_required --><fieldset class="inputs ng-scope" ng-show="!socialLoginRequired() &amp;&amp; (                     !campaign.login_first ||                                                      contestantState.emailLogin ||                                                 campaign.details_first ||                                                     (contestantState.contestant.id &amp;&amp; campaign.login_first &amp;&amp; !enoughUserDetails(entry_method)) || 
+contestantState.unconfirmed)" ng_if="!contestantState.form.email_verfication_required">
+<div class="center details-header" ng-switch="::isReward()">
+<!-- ngSwitchWhen: true -->
+<!-- ngSwitchWhen: false --><div ng-switch-when="false" class="ng-scope">
+<!-- ngIf: campaign.additional_contestant_details && contestantStep==0 --><div ng-if="campaign.additional_contestant_details &amp;&amp; contestantStep==0" class="ng-scope">
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><h4 ng-if="::!campaign.login_first" class="ng-binding ng-scope">Please enter your details to complete your entry</h4><!-- end ngIf: ::!campaign.login_first -->
+</div><!-- end ngIf: campaign.additional_contestant_details && contestantStep==0 -->
+<!-- ngIf: ::!campaign.additional_contestant_details -->
+</div><!-- end ngSwitchWhen: -->
+</div>
+<div class="form-horizontal">
+<div ng-init="contestantSteps=1">
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="input required stringish form-group" ng-class="{error: contestantForm.name.$invalid &amp;&amp; contestantForm.name.$touched, success: contestantForm.name.$valid}">
+<label class="implicit-label">
+<div class="control-label">Full Name</div>
+<div class="form-wrapper">
+<input name="name" ng-disabled="contestantFormFullnameDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.name" ng-pattern=".*" placeholder="Alice Smith" required="" style="width: 246px" type="text" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.name.$viewValue">Required</div>
+</div>
+</label>
+</div>
+
+
+<div class="email input required stringish form-group" ng-class="{error: ((contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail) || (contestantForm.email.$invalid &amp;&amp; contestantForm.email.$touched)), success: contestantState.form.email != contestantState.failedEmail &amp;&amp; contestantForm.email.$valid}">
+<label class="implicit-label">
+<div class="control-label">Email</div>
+<div class="form-wrapper">
+<input name="email" ng-change="contestantState.failedEmail = nil" ng-disabled="contestantFormEmailDisabled" ng-model-options="{ debounce: 300 }" ng-model="contestantState.form.email" pattern="[A-Z0-9._%a-z\-+]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,12}" placeholder="alice.smith@example.com" required="" style="width: 246px; -webkit-appearance: none;" type="email" class="ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required ng-valid-pattern">
+<div class="help-inline" ng-hide="contestantForm.email.$viewValue">Required</div>
+<div class="help-inline error ng-binding ng-hide" ng-show="contestantState.form.email &amp;&amp; contestantState.form.email == contestantState.failedEmail">
+
+</div>
+</div>
+</label>
+</div>
+
+
+<div ng-init="dc.date_of_birth = ({&quot;type&quot;:&quot;dob&quot;,&quot;label&quot;:&quot;Date of Birth&quot;,&quot;day_placeholder&quot;:&quot;DD&quot;,&quot;month_placeholder&quot;:&quot;MM&quot;,&quot;year_placeholder&quot;:&quot;YYYY&quot;,&quot;format&quot;:&quot;By Region&quot;,&quot;required&quot;:true,&quot;readonly&quot;:true,&quot;generated&quot;:&quot;minimum_age&quot;,&quot;minimum_age&quot;:18}|unescapeAngular)">
+<div class="input stringish form-group split-dob required" ng-class="{'split-dob': true, error: contestantForm.date_of_birth.$touched &amp;&amp; contestantForm.date_of_birth.$invalid, success: contestantForm.date_of_birth.$valid &amp;&amp; contestantForm.date_of_birth.$viewValue, required: true }">
+<label class="implicit-label">
+<div class="control-label" ng-non-bindable="">
+Date of Birth
+</div>
+<div class="form-wrapper" style="width: calc(100% - 130px)">
+<div class="dob-input-field ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" day-placeholder="DD" dob-minimum-age="18" dob-required="true" month-placeholder="MM" name="date_of_birth" ng-model="contestantState.form.date_of_birth" year-placeholder="YYYY"><div ng-form="" name="dobFormxdr42d6fw" class="split-dob-form ng-pristine ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" style="display: inline-block;">
+  <input type="hidden" name="date_of_birth" autocomplete="off">
+  <!-- ngIf: monthFirst -->
+  <input class="dob-input-field__day ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-day" ng-model="dob.day" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((3[01])|([12][0-9])|(0?[1-9]?))$" maxlength="2" placeholder="DD" ng-required="required" restrict="[^\d]" ng-change="onDayChange()" ng-focus="onDayFocus()" ng-blur="onDayBlur()" ng-keydown="onDayKeydown($event)" style="width: 38px !important; margin-right: 6px;" "="" required="required">
+  <!-- ngIf: !monthFirst --><input ng-if="!monthFirst" class="dob-input-field__month ng-pristine ng-untouched ng-scope ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-month" ng-model="dob.month" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((1[0-2]{1})|(0?[1-9]{1}))$" maxlength="2" placeholder="MM" ng-required="required" restrict="[^\d]" ng-change="onMonthChange()" ng-focus="onMonthFocus()" ng-blur="onMonthBlur()" ng-keydown="onMonthKeydown($event)" style="width: 38px !important; margin-right: 6px;" required="required"><!-- end ngIf: !monthFirst -->
+  <input class="dob-input-field__year ng-pristine ng-untouched ng-empty ng-valid-pattern ng-invalid ng-invalid-required ng-valid-maxlength" type="text" name="date_of_birth-year" ng-model="dob.year" ng-model-options="{ allowInvalid: true }" inputmode="numeric" pattern="^((((19)|(20))\d{2})|([0-9]{1,2}))$" maxlength="4" placeholder="YYYY" ng-required="required" restrict="[^\d]" ng-change="onYearChange()" ng-focus="onYearFocus()" ng-blur="onYearBlur()" ng-keydown="onYearKeydown($event)" style="width: 56px !important;" required="required">
+</div></div>
+<!-- ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge --><div class="help-inline ng-scope" ng-if="((contestantForm.date_of_birth.$viewValue &amp;&amp; !contestantForm.date_of_birth.$valid) || 1) &amp;&amp; !contestantForm.date_of_birth.$error.minimumAge">
+Required
+</div><!-- end ngIf: ((contestantForm.date_of_birth.$viewValue && !contestantForm.date_of_birth.$valid) || 1) && !contestantForm.date_of_birth.$error.minimumAge -->
+<!-- ngIf: ::dc.date_of_birth.hint -->
+</div>
+<p class="under-error ng-binding ng-hide" ng-show="contestantForm.date_of_birth.$error.minimumAge">You must be at least 18 years of age</p>
+</label>
+</div>
+
+</div>
+
+<div ng-init="dc.i_have_read_the_terms_and_conditions = ({&quot;type&quot;:&quot;checkbox&quot;,&quot;label&quot;:&quot;I have read the terms and conditions&quot;,&quot;required&quot;:true,&quot;template_name&quot;:&quot;I have read the terms and conditions&quot;,&quot;terms_and_conditions&quot;:true,&quot;terms_and_conditions_label&quot;:&quot;I have read the&quot;,&quot;terms_and_conditions_title&quot;:&quot;terms and conditions&quot;}|unescapeAngular)">
+<div class="input boolean form-group additional-checkbox terms-and-conditions">
+<div class="form-wrapper">
+<label class="checkbox">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input name="i_have_read_the_terms_and_conditions" ng-init="contestantState.form.i_have_read_the_terms_and_conditions = allowAutoticking() &amp;&amp; false" ng-model="contestantState.form.i_have_read_the_terms_and_conditions" ng-required="true" placeholder="" type="checkbox" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="required">
+<span class="ng-binding">
+I have read the
+<a href="javascript:void(0);" ng-click="toggleTermsAndConditions()" class="ng-binding">
+terms and conditions
+</a>
+</span>
+</label>
+</div>
+</div>
+
+
+</div>
+
+</div><!-- end ngIf: contestantStep==0 -->
+</div>
+</div>
+<!-- ngIf: contestantStep==0 --><div class="contestant-form-group ng-scope" ng-if="contestantStep==0">
+<div class="boolean input optional form-group" ng-hide="::isReward() || !campaign.show_competition_subscription">
+<div class="form-wrapper">
+<label class="checkbox ng-binding">
+<span class="icon"></span>
+<span class="icon-to-fade"></span>
+<input ng-model="contestantState.form.competition_subscription" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty">
+<span class="user-fragment ng-binding" ng-bind-html="::&quot;Notify me of other Bitcoin Minetrix Competitions&quot;|unescapeAngular">Notify me of other Bitcoin Minetrix Competitions</span>
+(optional)
+</label>
+</div>
+
+</div>
+<!-- ngIf: ::campaign.facebook_url -->
+</div><!-- end ngIf: contestantStep==0 -->
+</fieldset><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+<div class="form-actions center" ng-show="!socialLoginRequired() &amp;&amp; (                   !campaign.login_first ||                                                       contestantState.emailLogin ||                                                  campaign.details_first ||                                                      
+contestantState.contestant.id)">
+<span style="position: inline-block; position: relative">
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && !contestantState.contestant.verificationToEmail -->
+<!-- ngIf: contestantState.form.email_verfication_required && !nextStepAvailable() && contestantState.contestant.verificationToEmail -->
+<!-- ngIf: nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<!-- ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required --><button class="btn btn-primary ng-scope" ng-click="setContestant()" ng-disabled="contestantForm.$invalid || contestantState.sending" ng-if="!nextStepAvailable() &amp;&amp; !contestantState.form.email_verfication_required" disabled="disabled">
+<span class="fas fa-rotate fa-spin ng-hide" ng-show="contestantState.sending"></span>
+<!-- ngIf: ::campaign.login_first -->
+<!-- ngIf: ::!campaign.login_first --><span ng-if="::!campaign.login_first" class="ng-scope">Save</span><!-- end ngIf: ::!campaign.login_first -->
+</button><!-- end ngIf: !nextStepAvailable() && !contestantState.form.email_verfication_required -->
+<span ng-show="contestantButtonTooltip(contestantForm.$valid)" style="position: absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0" tooltip-placement="top" uib-tooltip="Please complete your details to continue"></span>
+</span>
+<span ng-hide="::campaign.login_first &amp;&amp; campaign.details_first">
+<!-- ngIf: !contestantState.form.email_verfication_required --><a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Contestant')" ng-if="!contestantState.form.email_verfication_required" class="ng-scope">
+Cancel
+</a><!-- end ngIf: !contestantState.form.email_verfication_required -->
+<!-- ngIf: contestantState.form.email_verfication_required -->
+</span>
+</div>
+</form>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods --><div class="entry-method " data-remove-popovers="" id="em7406440" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link telegram-border telegram_join-border clearfix actioned" data-track-event="###APP_NAME### Click|telegram|join" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="Done! You got 0 entries">
+<span ng-hide="hideTallyNumber(entry_method)" class="ng-hide">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)" class="fas fa-lock"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fab fa-telegram"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Join
+<!-- ngIf: ::(entry_method.config1=='Public') --><span class="dotted-underline ng-binding ng-scope" data-container="#em7406440" data-content-finder="#em7406440-popover-content" data-html="true" data-more-popover="" data-placement="top" ng-if="::(entry_method.config1=='Public')" popover-parsed="true" data-original-title="" title="">@bitcoinminetrix</span><!-- end ngIf: ::(entry_method.config1=='Public') -->
+<!-- ngIf: ::(entry_method.config1=='Private') -->
+on Telegram
+<div id="em7406440-popover-content" style="display:none" class="ng-scope">
+<!-- ngIf: ::(entry_method.config1=='Public') --><a href="https://t.me/bitcoinminetrix" ng-if="::(entry_method.config1=='Public')" rel="noopener" target="_blank" class="ng-binding ng-scope">
+t.me/bitcoinminetrix
+</a><!-- end ngIf: ::(entry_method.config1=='Public') -->
+<!-- ngIf: ::(entry_method.config1=='Private') -->
+</div>
+
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<form class="entry_details compact-box form-compact ng-pristine ng-valid ng-scope">
+<div class="form-compact__content center">
+<div class="form-compact__part">
+<p>
+Click the link below to join
+<!-- ngIf: ::(entry_method.config1 == 'Public') --><a class="no-underline ng-binding ng-scope" ng-href="https://t.me/bitcoinminetrix" ng-if="::(entry_method.config1 == 'Public')" rel="noopener" target="_blank" href="https://t.me/bitcoinminetrix">
+@bitcoinminetrix
+</a><!-- end ngIf: ::(entry_method.config1 == 'Public') -->
+<!-- ngIf: ::(entry_method.config1 == 'Private') -->
+on Telegram
+</p>
+</div>
+<div class="form-compact__part">
+<p>
+<!-- ngIf: ::(entry_method.config1 == 'Public') --><a class="btn btn-info btn-large btn-embossed ng-binding ng-scope" ng-click="triggerVisit(entry_method, false)" ng-href="https://t.me/bitcoinminetrix" ng-if="::(entry_method.config1 == 'Public')" rel="noopener" target="_blank" href="https://t.me/bitcoinminetrix">
+<i class="fab fa-telegram"></i>
+&nbsp;
+Join
+@bitcoinminetrix
+on Telegram
+</a><!-- end ngIf: ::(entry_method.config1 == 'Public') -->
+<!-- ngIf: ::(entry_method.config1 == 'Private') -->
+</p>
+</div>
+</div>
+<div class="form-actions center" style="margin-top: 10px;">
+<button class="btn btn-primary" ng-click="saveEntryDetails(entry_method)">
+Continue
+</button>
+<a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Telegram Join Channel')">
+Cancel
+</a>
+</div>
+</form>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods --><div class="entry-method " data-remove-popovers="" id="em7406441" ng-class="{expanded: entryState.expanded == entry_method, template: entry_method.template, 'completed-entry-method': !canEnter(entry_method) &amp;&amp; isEntered(entry_method)}" ng-repeat="entry_method in ::entry_methods">
+<a class="no-underline enter-link discord-border discord_join_server-border clearfix actioned" data-track-event="###APP_NAME### Click|discord|join_server" href="javascript:void(0)" ng-class="{actioned: enoughEntryDetails(entry_method) || isClaimed(entry_method), mandatory: entry_method.mandatory, loading: entry_method.entering, done: !canEnter(entry_method) &amp;&amp; isEntered(entry_method), interval: entry_method.interval_seconds > 1, variable_worth: entry_method.variable_worth, has_coupon: entry_method.coupon, unavailable: entryMethodCouponNotAvailable(entry_method), default: !entry_method.entering &amp;&amp; canEnter(entry_method) &amp;&amp; !isClaimed(entry_method) &amp;&amp; entryState.expanded != entry_method}" ng-click="enterLinkClick(entry_method)">
+<span class="tally" data-worth="1" ng-hide="hideTally(entry_method)" tooltip-placement="left" uib-tooltip="Done! You got 0 entries">
+<span ng-hide="hideTallyNumber(entry_method)" class="ng-hide">
+<small class="tally__text ng-hide" ng-show="::entry_method.variable_worth">up to</small>
+<span ng-show="::entry_method.worth < 1000" class="ng-binding">+1</span>
+<small ng-show="::entry_method.worth >= 1000" class="ng-binding ng-hide">+1</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 3600">per hour</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 86400">per day</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.interval_seconds == 604800">per week</small>
+<small class="tally__text ng-hide" ng-show="::entry_method.coupon">left</small>
+</span>
+<i ng-class="tallyIcon(entry_method)" class="fas fa-lock"></i>
+</span>
+<span class="icon-wrapper" ng-style="{backgroundColor: entryMethodColor(entry_method), color: entryMethodIconColor(entry_method)}" style="background-color: rgb(246, 145, 29); color: rgb(255, 255, 255);"><i class="fab fa-discord"></i></span>
+<span class="vertical-align-helper"></span>
+<!-- ngInclude: ::'views/entry-text/'+entry_method.entry_type+'.html' --><span class="text user-links entry-method-title ng-scope ng-binding" ng-include="::'views/entry-text/'+entry_method.entry_type+'.html'">
+Join Our Discord Server
+</span>
+</a>
+<div class="expandable">
+<!-- ngInclude: entryMethodView(entry_method) --><div class="expanded-view ng-scope" ng-include="entryMethodView(entry_method)">
+<form class="entry_details compact-box form-compact ng-pristine ng-valid ng-scope">
+<div class="form-compact__content center">
+<div class="form-compact__part">
+<p>
+Click the link below to join the
+<b class="ng-binding">#🛄│general-discussion</b>
+on the
+<b class="ng-binding">BitcoinMineTrix</b>
+Discord Server
+</p>
+<p>
+<a class="btn btn-info btn-large btn-embossed ng-binding" ng-click="triggerVisit(entry_method, false)" ng-href="https://discord.com/invite/HDSx3AQWwV" rel="noopener" target="_blank" href="https://discord.com/invite/HDSx3AQWwV">
+<span class="fab fa-discord"></span>
+Join
+#🛄│general-discussion
+</a>
+</p>
+</div>
+</div>
+<div class="form-actions center" style="margin-top: 10px;">
+<button class="btn btn-primary" ng-click="saveEntryDetails(entry_method)">
+Continue
+</button>
+<a href="javascript:void(0)" ng-click="cancelEntry('###APP_NAME### Click|Cancel|Join Discord Server')">
+Cancel
+</a>
+</div>
+</form>
+
+</div>
+<!-- ngIf: showActionFooter(entry_method) -->
+</div>
+<!-- ngIf: ::entry_method.preload_images.length > 0 -->
+</div><!-- end ngRepeat: entry_method in ::entry_methods -->
+<div class="unlock-text user-links ng-scope" ng-show="::nonMandatoryEntriesCount() > 0">
+<!-- ngIf: ::!isReward() --><h3 class="user-fragment center ng-binding ng-scope" ng-bind-html="::pl(nonMandatoryEntriesCount(), 'unlock_heading_singular', 'unlock_heading_plural')|unescapeAngular" ng-if="::!isReward()"><i class="fas fa-lock"></i> Unlock 4 More Entries</h3><!-- end ngIf: ::!isReward() -->
+<!-- ngIf: ::isReward() -->
+<p class="center ng-binding" ng-bind-html="::t('unlock_text', {value: tallyType()})" style="margin: 0; padding-bottom: 15px;">Complete the above entries to unlock the rest!</p>
+</div>
+
+</div>
+</div>
+</div>
+<!-- ngIf: ::campaign.banned -->
+<!-- ngIf: ::!campaign.banned && (isTryingFeatures() && !isTestMode()) -->
+<!-- ngIf: ::!campaign.banned && !contestantState.location_allowed -->
+<!-- ngIf: ::!campaign.banned && contestantState.location_allowed && !contestantState.referrer_allowed -->
+<!-- ngIf: ::!campaign.banned && !campaign.event_mode && contestantState.location_allowed && contestantState.referrer_allowed && contestantState.contestant.banned -->
+<!-- ngIf: contestantState.location_allowed && contestantState.referrer_allowed && showCookieFix() && !contestantState.contestant.banned -->
+</div>
+
+</div>
